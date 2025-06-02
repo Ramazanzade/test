@@ -1,0 +1,21 @@
+name: Deploy Static HTML
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH ilə serverə bağlan və HTML kodunu yenilə
+        uses: appleboy/ssh-action@v1
+        with:
+          host: 144.91.121.215
+          username: root
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /root/home/nizam/aws_task
+            git pull origin main
